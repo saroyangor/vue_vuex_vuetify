@@ -1,19 +1,2 @@
-# vue_vuex_vuetify
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# Vue+Vuex+Vuetify Todo App
+[Todo](https://saroyangor-vuetify-todo.netlify.app/)
