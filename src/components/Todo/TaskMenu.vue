@@ -34,6 +34,11 @@
         :task="task"
         @close="dialogs.edit = false"
     />
+    <dialog-due-date
+        v-if="dialogs.dueDate"
+        :task="task"
+        @close="dialogs.dueDate = false"
+    />
     <dialog-delete
         v-if="dialogs.delete"
         :id="task.id"
@@ -43,19 +48,22 @@
 </template>
 
 <script>
-import DialogDelete from "./Dialogs/DialogDelete.vue";
 import DialogEdit from "./Dialogs/DialogEdit.vue";
+import DialogDueDate from "./Dialogs/DialogDueDate.vue";
+import DialogDelete from "./Dialogs/DialogDelete.vue";
 
 export default {
   props: ['task'],
   components: {
-    DialogDelete,
     DialogEdit,
+    DialogDueDate,
+    DialogDelete,
   },
   data: () => ({
     dialogs: {
-      delete: false,
       edit: false,
+      dueDate: false,
+      delete: false,
     },
     items: [
       {
@@ -63,20 +71,32 @@ export default {
         icon: "mdi-pencil",
         click() {
           this.dialogs.edit = true
-        },
+        }
       },
       {
         title: "Due date",
         icon: "mdi-calendar",
-        click: () => {
-        },
+        click() {
+          this.dialogs.dueDate = true
+        }
+      },
+      {
+        title: "Sort",
+        icon: "mdi-drag-horizontal-variant",
+        click() {
+          if (!this.$store.state.search) {
+            this.$store.commit('toggleSorting')
+          } else {
+            this.$store.commit('showSnackbar', 'How DARE you try to sort while searching!')
+          }
+        }
       },
       {
         title: "Delete",
         icon: "mdi-delete",
         click() {
           this.dialogs.delete = true
-        },
+        }
       },
     ],
   }),
